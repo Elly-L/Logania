@@ -1,0 +1,9 @@
+This directory will contain the following images:
+- hero-bg.jpg (a fantasy landscape background)
+- map-overlay.png (a transparent fantasy map overlay)
+- forest-bg.jpg (a mystical forest background)
+- fantasy-map.jpg (an interactive fantasy map)
+- character-1.jpg (character portrait for Elyndra)
+- character-2.jpg (character portrait for Thorne)
+- character-3.jpg (character portrait for Grimshaw)
+
