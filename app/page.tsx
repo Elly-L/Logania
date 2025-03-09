@@ -3,7 +3,6 @@ import About from "@/components/about"
 import GameDeveloper from "@/components/game-developer"
 import Features from "@/components/features"
 import CharacterShowcase from "@/components/character-showcase"
-import Footer from "@/components/footer"
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       </section>
       <GameDeveloper />
       <Features />
-      <Footer />
     </main>
   )
 }

@@ -3,6 +3,7 @@
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 export default function Hero() {
   const ref = useRef(null)
@@ -10,6 +11,7 @@ export default function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   })
+  const router = useRouter()
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
@@ -73,8 +75,19 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg">
+          <Button
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-lg group"
+            onClick={() => router.push("/welcome")}
+          >
             Begin Your Journey
+            <motion.span
+              className="ml-2"
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+            >
+              →
+            </motion.span>
           </Button>
           <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-lg">
             Learn More

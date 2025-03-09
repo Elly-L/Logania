@@ -45,8 +45,8 @@ export default function Navbar() {
           <Link href="/worlds" className="text-white/80 hover:text-primary transition-colors">
             Worlds
           </Link>
-          <Link href="/introduction" className="text-white/80 hover:text-primary transition-colors">
-            Introduction
+          <Link href="/welcome" className="text-white/80 hover:text-primary transition-colors">
+            Welcome
           </Link>
           <Link
             href={isHomePage ? "#developer" : "/#developer"}
@@ -63,8 +63,8 @@ export default function Navbar() {
           <Link href="/join" className="text-white/80 hover:text-primary transition-colors">
             Join Us
           </Link>
-          <Button className="bg-primary hover:bg-primary/90" onClick={() => router.push("/introduction")}>
-            Explore Now
+          <Button className="bg-primary hover:bg-primary/90" onClick={() => router.push("/welcome")}>
+            Begin Journey
           </Button>
         </div>
 
@@ -91,11 +91,11 @@ export default function Navbar() {
               Worlds
             </Link>
             <Link
-              href="/introduction"
+              href="/welcome"
               className="text-white/80 hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              Introduction
+              Welcome
             </Link>
             <Link
               href={isHomePage ? "#developer" : "/#developer"}
@@ -121,11 +121,11 @@ export default function Navbar() {
             <Button
               className="bg-primary hover:bg-primary/90 w-full"
               onClick={() => {
-                router.push("/introduction")
+                router.push("/welcome")
                 setIsMenuOpen(false)
               }}
             >
-              Explore Now
+              Begin Journey
             </Button>
           </div>
         </div>

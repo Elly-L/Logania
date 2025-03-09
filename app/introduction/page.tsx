@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Volume2, VolumeX } from "lucide-react"
+import { ChevronRight, Volume2, VolumeX, SkipForward } from "lucide-react"
 
 const worlds = [
   {
@@ -68,6 +68,7 @@ export default function IntroductionPage() {
 
       audioRef.current.addEventListener("ended", () => {
         setIsAudioPlaying(false)
+        setIsNarrationComplete(true)
       })
     }
 
@@ -123,6 +124,13 @@ export default function IntroductionPage() {
     }
   }
 
+  const skipIntroduction = () => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+    }
+    setIsNarrationComplete(true)
+  }
+
   const navigateToWorld = (worldId: string) => {
     router.push(`/worlds/${worldId}`)
   }
@@ -175,15 +183,26 @@ export default function IntroductionPage() {
             <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
               A realm of ancient magic, legendary heroes, and untold mysteries awaits your discovery.
             </p>
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-lg"
-              onClick={startJourney}
-              disabled={!isAudioLoaded}
-            >
-              {isAudioLoaded ? "Begin Your Journey" : "Loading..."}
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-lg"
+                onClick={startJourney}
+                disabled={!isAudioLoaded}
+              >
+                {isAudioLoaded ? "Begin Your Journey" : "Loading..."}
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-white border-white hover:bg-white/10 text-lg"
+                onClick={skipIntroduction}
+              >
+                Skip Introduction
+                <SkipForward className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </motion.div>
         ) : (
           <AnimatePresence>
@@ -196,20 +215,30 @@ export default function IntroductionPage() {
                 transition={{ duration: 0.8 }}
               >
                 <div className="bg-black/60 backdrop-blur-sm p-6 md:p-8 rounded-xl">
-                  <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium">
+                  <p className="text-lg md:text-2xl text-white/90 leading-relaxed font-medium font-cinzel tracking-wide">
                     {displayedText}
                     <span className="inline-block w-2 h-5 bg-primary ml-1 animate-pulse" />
                   </p>
                 </div>
 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="mt-6 text-white/80 hover:text-white hover:bg-white/10 rounded-full"
-                  onClick={toggleMute}
-                >
-                  {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume2 className="h-6 w-6" />}
-                </Button>
+                <div className="mt-6 flex justify-center gap-4">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
+                    onClick={toggleMute}
+                  >
+                    {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume2 className="h-6 w-6" />}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="text-white/80 hover:text-white hover:bg-white/10"
+                    onClick={skipIntroduction}
+                  >
+                    Skip
+                    <SkipForward className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
               </motion.div>
             ) : (
               <motion.div
@@ -218,9 +247,12 @@ export default function IntroductionPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 font-cinzel">
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-6 font-cinzel">
                   Choose Your Path
                 </h2>
+                <p className="text-center text-white/80 max-w-2xl mx-auto mb-12">
+                  These are but a few of the many realms within Logania. More lands await discovery on your journey.
+                </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {worlds.map((world, index) => (
@@ -230,10 +262,32 @@ export default function IntroductionPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{
+                        scale: 1.05,
+                        transition: { duration: 0.3 },
+                      }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => navigateToWorld(world.id)}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10 group-hover:from-primary/80 transition-all duration-300" />
-                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                      <motion.div
+                        className="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 rounded-lg opacity-0 group-hover:opacity-100 blur-sm z-0"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden z-10">
+                        <motion.div
+                          className="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100"
+                          animate={{
+                            scale: [1, 1.05, 1],
+                            opacity: [0, 0.2, 0],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Number.POSITIVE_INFINITY,
+                            repeatType: "loop",
+                          }}
+                        />
                         <Image
                           src={world.image || "/placeholder.svg"}
                           alt={world.name}

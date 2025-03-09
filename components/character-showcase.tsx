@@ -70,13 +70,7 @@ const characters: Character[] = [
     description:
       "Master craftsman who forges magical artifacts in the depths of the Frostpeak Mountains. His creations are sought after by heroes across the land.",
     fullBio:
-      "Grimshaw comes from a long line of dwarven craftsmen, but he was the first in generations to rediscover the ancient art of runesmithing. By infusing metal with magical runes during the forging process, he creates weapons and armor with extraordinary properties. His workshop deep in the Frostpeak Mountains is said to contain forges that burn with the fire of a captured star.",
-    abilities: [
-      "Runesmithing - The ability to create powerful magical items through ancient dwarven techniques",
-      "Fire Resistance - Immune to heat and flame, allowing him to work with the hottest materials",
-      "Stone Sense - Can navigate underground with perfect accuracy and detect structural weaknesses",
-      "Enchanted Strength - Possesses strength far beyond what his stature would suggest",
-    ],
+      "Grimshaw comes from a long line of dwarven craftsmen, but he was the first in generations to rediscover the ancient art of runesmithing. By infusing metal with magical runes during the forging process, he creates weapons and armor with extraordinary properties. His workshop deep in the Frostpeak Mountains is said to contain forges that burn with the fire of a  His workshop deep in the Frostpeak Mountains is said to contain forges that burn with the fire of a captured star.",
     backstory:
       "As a young dwarf, Grimshaw was considered odd for his obsession with ancient texts rather than traditional mining. When he discovered a sealed chamber containing the lost runesmithing techniques of his ancestors, he became determined to revive the art. His first masterpiece—an axe that could cut through any material—brought warriors from across Logania to his door. Now he creates only for those he deems worthy, using his gifts to ensure balance in the realm.",
     image:
@@ -293,331 +287,159 @@ export default function CharacterShowcase() {
         )}
       </AnimatePresence>
 
-      {/* Character Detail Modal */}
+      {/* Character Detail Modal - Using version 9 style for desktop with scrollbar */}
       <AnimatePresence>
         {showDetailModal && (
           <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-start justify-center p-4 overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
               ref={modalRef}
-              className="bg-gray-900 border border-primary/30 rounded-xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-gray-900 border border-primary/30 rounded-xl w-full max-w-4xl my-10"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
             >
-              {/* Fixed Header */}
-              <div className="p-4 md:p-6 flex justify-between items-center border-b border-gray-800 sticky top-0 bg-gray-900 z-10">
-                <div className="flex items-center gap-2 md:gap-4">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-white/70 hover:text-white hover:bg-white/10 rounded-full flex-shrink-0"
-                    onClick={handleCloseModal}
-                    aria-label="Close character details"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
-                  <h2 className="text-xl md:text-2xl font-bold text-white truncate">{currentCharacter.name}</h2>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="md:hidden"
-                    onClick={prevCharacter}
-                    aria-label="Previous character"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={prevCharacter} className="hidden md:flex">
-                    Previous Character
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="md:hidden"
-                    onClick={nextCharacter}
-                    aria-label="Next character"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={nextCharacter} className="hidden md:flex">
-                    Next Character
-                  </Button>
-                </div>
+              <div className="p-6 flex justify-between items-center border-b border-gray-800 sticky top-0 bg-gray-900 z-10">
+                <h2 className="text-2xl font-bold text-white">{currentCharacter.name}</h2>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white/70 hover:text-white hover:bg-white/10 rounded-full"
+                  onClick={handleCloseModal}
+                  aria-label="Close character details"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
               </div>
 
-              {/* Scrollable Content */}
-              <div className="flex-grow overflow-auto" style={{ minHeight: "50vh" }}>
-                {isMobile ? (
-                  // Mobile Layout
-                  <div className="p-4">
-                    {/* Image Gallery */}
-                    <div className="mb-6">
-                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-between p-4 z-10">
-                          {currentCharacter.alternateImage && (
-                            <>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-full bg-black/50 hover:bg-black/70"
-                                onClick={() => handleImageNavigation("prev")}
-                                aria-label="Previous image"
-                              >
-                                <ChevronLeft className="h-6 w-6" />
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-full bg-black/50 hover:bg-black/70"
-                                onClick={() => handleImageNavigation("next")}
-                                aria-label="Next image"
-                              >
-                                <ChevronRight className="h-6 w-6" />
-                              </Button>
-                            </>
-                          )}
-                        </div>
-                        <Image
-                          src={
-                            selectedImageIndex === 0
-                              ? currentCharacter.image
-                              : currentCharacter.alternateImage || currentCharacter.image
-                          }
-                          alt={currentCharacter.name}
-                          fill
-                          className="object-cover transition-opacity duration-300"
-                        />
-                      </div>
-
-                      {currentCharacter.alternateImage && (
-                        <div className="flex gap-4 justify-center mt-4">
-                          <button
-                            className={`w-16 h-16 relative rounded-lg overflow-hidden border-2 transition-colors ${
-                              selectedImageIndex === 0 ? "border-primary" : "border-transparent"
-                            }`}
-                            onClick={() => setSelectedImageIndex(0)}
-                            aria-label="First image"
-                          >
-                            <Image
-                              src={currentCharacter.image || "/placeholder.svg"}
-                              alt={`${currentCharacter.name} 1`}
-                              fill
-                              className="object-cover"
-                            />
-                          </button>
-                          <button
-                            className={`w-16 h-16 relative rounded-lg overflow-hidden border-2 transition-colors ${
-                              selectedImageIndex === 1 ? "border-primary" : "border-transparent"
-                            }`}
-                            onClick={() => setSelectedImageIndex(1)}
-                            aria-label="Second image"
-                          >
-                            <Image
-                              src={currentCharacter.alternateImage || "/placeholder.svg"}
-                              alt={`${currentCharacter.name} 2`}
-                              fill
-                              className="object-cover"
-                            />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Role */}
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-primary mb-1">Role</h3>
-                      <p className="text-white/90">{currentCharacter.role}</p>
-                    </div>
-
-                    {/* Tabs */}
-                    <div className="flex border-b border-gray-700 mb-4">
-                      <button
-                        className={`px-4 py-2 font-medium ${
-                          activeTab === "bio" ? "text-primary border-b-2 border-primary" : "text-white/70"
-                        }`}
-                        onClick={() => setActiveTab("bio")}
-                      >
-                        Biography
-                      </button>
-                      <button
-                        className={`px-4 py-2 font-medium ${
-                          activeTab === "abilities" ? "text-primary border-b-2 border-primary" : "text-white/70"
-                        }`}
-                        onClick={() => setActiveTab("abilities")}
-                      >
-                        Abilities
-                      </button>
-                      <button
-                        className={`px-4 py-2 font-medium ${
-                          activeTab === "backstory" ? "text-primary border-b-2 border-primary" : "text-white/70"
-                        }`}
-                        onClick={() => setActiveTab("backstory")}
-                      >
-                        Backstory
-                      </button>
-                    </div>
-
-                    {/* Tab Content */}
-                    <div className="space-y-4">
-                      {activeTab === "bio" && (
-                        <div>
-                          <p className="text-white/90">{currentCharacter.fullBio}</p>
-                        </div>
-                      )}
-
-                      {activeTab === "abilities" && (
-                        <div>
-                          <ul className="list-disc pl-5 space-y-2 text-white/90">
-                            {currentCharacter.abilities.map((ability, index) => (
-                              <li key={index}>{ability}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {activeTab === "backstory" && (
-                        <div>
-                          <p className="text-white/90">{currentCharacter.backstory}</p>
-                        </div>
-                      )}
-                    </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 max-h-[70vh] overflow-y-auto">
+                <div>
+                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                    <Image
+                      src={
+                        selectedImageIndex === 0
+                          ? currentCharacter.image
+                          : currentCharacter.alternateImage || currentCharacter.image
+                      }
+                      alt={currentCharacter.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                ) : (
-                  // Desktop Layout
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-                    <div className="space-y-6">
-                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-between p-4 z-10">
-                          {currentCharacter.alternateImage && (
-                            <>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-full bg-black/50 hover:bg-black/70"
-                                onClick={() => handleImageNavigation("prev")}
-                                aria-label="Previous image"
-                              >
-                                <ChevronLeft className="h-6 w-6" />
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="rounded-full bg-black/50 hover:bg-black/70"
-                                onClick={() => handleImageNavigation("next")}
-                                aria-label="Next image"
-                              >
-                                <ChevronRight className="h-6 w-6" />
-                              </Button>
-                            </>
-                          )}
-                        </div>
+
+                  {currentCharacter.alternateImage && (
+                    <div className="flex gap-4 justify-center mt-4">
+                      <button
+                        className={`w-16 h-16 relative rounded-lg overflow-hidden border-2 transition-colors ${
+                          selectedImageIndex === 0 ? "border-primary" : "border-transparent"
+                        }`}
+                        onClick={() => setSelectedImageIndex(0)}
+                        aria-label="First image"
+                      >
                         <Image
-                          src={
-                            selectedImageIndex === 0
-                              ? currentCharacter.image
-                              : currentCharacter.alternateImage || currentCharacter.image
-                          }
-                          alt={currentCharacter.name}
+                          src={currentCharacter.image || "/placeholder.svg"}
+                          alt={`${currentCharacter.name} 1`}
                           fill
-                          className="object-cover transition-opacity duration-300"
+                          className="object-cover"
                         />
-                      </div>
-
-                      {currentCharacter.alternateImage && (
-                        <div className="flex gap-4 justify-center">
-                          <button
-                            className={`w-20 h-20 relative rounded-lg overflow-hidden border-2 transition-colors ${
-                              selectedImageIndex === 0 ? "border-primary" : "border-transparent"
-                            }`}
-                            onClick={() => setSelectedImageIndex(0)}
-                            aria-label="First image"
-                          >
-                            <Image
-                              src={currentCharacter.image || "/placeholder.svg"}
-                              alt={`${currentCharacter.name} 1`}
-                              fill
-                              className="object-cover"
-                            />
-                          </button>
-                          <button
-                            className={`w-20 h-20 relative rounded-lg overflow-hidden border-2 transition-colors ${
-                              selectedImageIndex === 1 ? "border-primary" : "border-transparent"
-                            }`}
-                            onClick={() => setSelectedImageIndex(1)}
-                            aria-label="Second image"
-                          >
-                            <Image
-                              src={currentCharacter.alternateImage || "/placeholder.svg"}
-                              alt={`${currentCharacter.name} 2`}
-                              fill
-                              className="object-cover"
-                            />
-                          </button>
-                        </div>
-                      )}
+                      </button>
+                      <button
+                        className={`w-16 h-16 relative rounded-lg overflow-hidden border-2 transition-colors ${
+                          selectedImageIndex === 1 ? "border-primary" : "border-transparent"
+                        }`}
+                        onClick={() => setSelectedImageIndex(1)}
+                        aria-label="Second image"
+                      >
+                        <Image
+                          src={currentCharacter.alternateImage || "/placeholder.svg"}
+                          alt={`${currentCharacter.name} 2`}
+                          fill
+                          className="object-cover"
+                        />
+                      </button>
                     </div>
+                  )}
 
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-xl font-bold text-primary mb-2">Role</h3>
-                        <p className="text-white/90 text-lg">{currentCharacter.role}</p>
-                      </div>
+                  <div className="mt-4">
+                    <h3 className="text-lg font-bold text-primary mb-1">Role</h3>
+                    <p className="text-white/90">{currentCharacter.role}</p>
+                  </div>
+                </div>
 
+                <div>
+                  <div className="flex border-b border-gray-700 mb-4">
+                    <button
+                      className={`px-4 py-2 font-medium ${
+                        activeTab === "bio" ? "text-primary border-b-2 border-primary" : "text-white/70"
+                      }`}
+                      onClick={() => setActiveTab("bio")}
+                    >
+                      Biography
+                    </button>
+                    <button
+                      className={`px-4 py-2 font-medium ${
+                        activeTab === "abilities" ? "text-primary border-b-2 border-primary" : "text-white/70"
+                      }`}
+                      onClick={() => setActiveTab("abilities")}
+                    >
+                      Abilities
+                    </button>
+                    <button
+                      className={`px-4 py-2 font-medium ${
+                        activeTab === "backstory" ? "text-primary border-b-2 border-primary" : "text-white/70"
+                      }`}
+                      onClick={() => setActiveTab("backstory")}
+                    >
+                      Backstory
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    {activeTab === "bio" && (
                       <div>
-                        <h3 className="text-xl font-bold text-primary mb-2">Biography</h3>
                         <p className="text-white/90">{currentCharacter.fullBio}</p>
                       </div>
+                    )}
 
+                    {activeTab === "abilities" && (
                       <div>
-                        <h3 className="text-xl font-bold text-primary mb-2">Abilities</h3>
                         <ul className="list-disc pl-5 space-y-2 text-white/90">
                           {currentCharacter.abilities.map((ability, index) => (
                             <li key={index}>{ability}</li>
                           ))}
                         </ul>
                       </div>
+                    )}
 
+                    {activeTab === "backstory" && (
                       <div>
-                        <h3 className="text-xl font-bold text-primary mb-2">Backstory</h3>
                         <p className="text-white/90">{currentCharacter.backstory}</p>
                       </div>
-                    </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
 
-              {/* Fixed Footer */}
-              <div className="p-4 md:p-6 border-t border-gray-800 flex justify-between items-center sticky bottom-0 bg-gray-900 z-10">
-                <Button variant="outline" onClick={handleCloseModal} className="flex-shrink-0">
+              <div className="p-6 border-t border-gray-800 flex justify-between">
+                <Button variant="outline" onClick={handleCloseModal}>
                   <X className="h-4 w-4 mr-2" />
                   Close
                 </Button>
-                {currentCharacter.alternateImage && (
-                  <div className="flex gap-2">
-                    <Button
-                      variant="ghost"
-                      disabled={selectedImageIndex === 0}
-                      onClick={() => handleImageNavigation("prev")}
-                      className="hidden md:flex"
-                    >
-                      Previous Image
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      disabled={!currentCharacter.alternateImage || selectedImageIndex === 1}
-                      onClick={() => handleImageNavigation("next")}
-                      className="hidden md:flex"
-                    >
-                      Next Image
-                    </Button>
-                  </div>
-                )}
+
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={prevCharacter}>
+                    <ChevronLeft className="h-4 w-4 mr-2" />
+                    Previous Character
+                  </Button>
+                  <Button variant="outline" onClick={nextCharacter}>
+                    Next Character
+                    <ChevronRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

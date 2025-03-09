@@ -7,9 +7,12 @@ import { useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, MapPin, Book, Compass, Shield } from "lucide-react"
+import WorldInteractiveCard from "@/components/world-interactive-card"
+import FloatingParticles from "@/components/floating-particles"
 
 const worlds = {
   eldoria: {
+    id: "eldoria",
     name: "Eldoria",
     title: "The Ancient Capital",
     description: "The ancient capital city, known for its towering spires and magical academies.",
@@ -49,6 +52,7 @@ const worlds = {
     mapLocation: "eldoria",
   },
   "whispering-woods": {
+    id: "whispering-woods",
     name: "Whispering Woods",
     title: "The Mystical Forest",
     description: "A mystical forest where the trees are said to speak to those who listen carefully.",
@@ -87,6 +91,7 @@ const worlds = {
     mapLocation: "whispering-woods",
   },
   "frostpeak-mountains": {
+    id: "frostpeak-mountains",
     name: "Frostpeak Mountains",
     title: "The Dragon's Domain",
     description: "Towering mountains where ancient dragons are rumored to dwell in hidden caves.",
@@ -126,6 +131,7 @@ const worlds = {
     mapLocation: "frostpeak-mountains",
   },
   "azure-sea": {
+    id: "azure-sea",
     name: "Azure Sea",
     title: "The Endless Waters",
     description: "Vast waters surrounding Logania, home to mysterious islands and ancient sea creatures.",
@@ -199,13 +205,41 @@ export default function WorldPage() {
   return (
     <main className="min-h-screen pt-20 bg-black">
       {isLoading ? (
-        <div className="min-h-[80vh] flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-[80vh] flex flex-col items-center justify-center">
+          <motion.div
+            className="relative w-24 h-24"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          >
+            <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent" />
+            <motion.div
+              className="absolute inset-2 rounded-full border-4 border-purple-400 border-b-transparent"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            />
+          </motion.div>
+          <motion.p
+            className="mt-6 text-white/80 font-cinzel"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Entering {world.name}...
+          </motion.p>
         </div>
       ) : (
         <>
           {/* Hero Section */}
           <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
+            {/* Add floating particles with world-specific colors */}
+            {world.id === "eldoria" && <FloatingParticles colors={["#f59e0b", "#d97706", "#b45309", "#92400e"]} />}
+            {world.id === "whispering-woods" && (
+              <FloatingParticles colors={["#10b981", "#059669", "#047857", "#065f46"]} />
+            )}
+            {world.id === "frostpeak-mountains" && (
+              <FloatingParticles colors={["#3b82f6", "#2563eb", "#1d4ed8", "#1e40af"]} />
+            )}
+            {world.id === "azure-sea" && <FloatingParticles colors={["#14b8a6", "#0d9488", "#0f766e", "#115e59"]} />}
             <div className="absolute inset-0">
               <Image src={world.image || "/placeholder.svg"} alt={world.name} fill className="object-cover" priority />
               <div className={`absolute inset-0 bg-gradient-to-b ${world.color} mix-blend-overlay`} />
@@ -296,6 +330,133 @@ export default function WorldPage() {
                     </div>
                   </motion.div>
                 </div>
+              </div>
+            </div>
+          </section>
+          {/* Interactive Activities Section */}
+          <section className="py-16 bg-gradient-to-b from-gray-900 to-black">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-12"
+              >
+                <h2 className="text-3xl font-bold text-white mb-3 font-cinzel">Activities & Adventures</h2>
+                <p className="text-white/70 max-w-2xl mx-auto">
+                  Discover quests, lore, and mysteries throughout {world.name}. Click on the cards to reveal more
+                  details.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {world.id === "eldoria" && (
+                  <>
+                    <WorldInteractiveCard
+                      title="The Archmage's Request"
+                      description="Elyndra, the Archmage of the Crystal Tower, seeks assistance with a magical anomaly that threatens the city's protective wards."
+                      type="quest"
+                      difficulty="medium"
+                      reward="Access to the Crystal Tower Library"
+                      color="text-amber-400"
+                    />
+                    <WorldInteractiveCard
+                      title="Secrets of the Eternal Gardens"
+                      description="Ancient texts speak of a hidden chamber beneath the Eternal Gardens where powerful artifacts were stored during the Great Cataclysm."
+                      type="location"
+                      difficulty="hard"
+                      color="text-amber-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The First Mage"
+                      description="Learn about Eldor, the legendary founder of Eldoria and the first human to master the arcane arts in Logania."
+                      type="lore"
+                      difficulty="easy"
+                      color="text-amber-400"
+                    />
+                  </>
+                )}
+
+                {world.id === "whispering-woods" && (
+                  <>
+                    <WorldInteractiveCard
+                      title="Voice of the Heart Tree"
+                      description="The Heart Tree has fallen silent, and the forest spirits are growing restless. Discover what has disrupted the ancient connection."
+                      type="quest"
+                      difficulty="medium"
+                      reward="Ability to understand forest whispers"
+                      color="text-green-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Forgotten Shrine"
+                      description="Deep within the woods lies an ancient elven shrine, its purpose and powers long forgotten by all but the oldest trees."
+                      type="location"
+                      difficulty="hard"
+                      color="text-green-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Forest's Memory"
+                      description="The Whispering Woods remember all that has transpired within their boundaries since the dawn of Logania."
+                      type="lore"
+                      difficulty="easy"
+                      color="text-green-400"
+                    />
+                  </>
+                )}
+
+                {world.id === "frostpeak-mountains" && (
+                  <>
+                    <WorldInteractiveCard
+                      title="Dragon's Hoard"
+                      description="Rumors speak of Frostfang's vast treasure hoard hidden somewhere in the highest peaks. Few have sought it, fewer have returned."
+                      type="quest"
+                      difficulty="hard"
+                      reward="A dragon-forged artifact"
+                      color="text-blue-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Lost Dwarven Halls"
+                      description="The abandoned dwarven city of Khaz-Modan holds secrets of ancient crafting techniques and powerful runesmithing."
+                      type="location"
+                      difficulty="medium"
+                      color="text-blue-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Frozen Sage"
+                      description="Legends tell of a wise hermit who lives atop the highest peak, preserved by the cold and possessing knowledge from the dawn of time."
+                      type="lore"
+                      difficulty="easy"
+                      color="text-blue-400"
+                    />
+                  </>
+                )}
+
+                {world.id === "azure-sea" && (
+                  <>
+                    <WorldInteractiveCard
+                      title="The Siren's Call"
+                      description="The mysterious beings of the Siren's Spires have fallen silent, disrupting weather patterns across the Azure Sea."
+                      type="quest"
+                      difficulty="medium"
+                      reward="Control over minor weather phenomena"
+                      color="text-teal-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Sunken City"
+                      description="The ruins of an ancient human city lie beneath the waves, holding treasures and technologies from before the Great Cataclysm."
+                      type="location"
+                      difficulty="hard"
+                      color="text-teal-400"
+                    />
+                    <WorldInteractiveCard
+                      title="The Merfolk Alliance"
+                      description="Learn about the historic pact between humans and merfolk that was formed during the rising of the waters."
+                      type="lore"
+                      difficulty="easy"
+                      color="text-teal-400"
+                    />
+                  </>
+                )}
               </div>
             </div>
           </section>
