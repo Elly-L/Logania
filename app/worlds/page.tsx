@@ -136,7 +136,10 @@ export default function WorldsPage() {
                     </div>
                     <div className="p-8 flex flex-col justify-center">
                       <h3 className="text-3xl font-bold text-white mb-4">{world.name}</h3>
-                      <p className="text-white/70 mb-6 text-lg">{world.longDescription}</p>
+                      <p className="text-white/70 mb-6 text-lg">{world.description}</p>
+                      <Link href={`/worlds/${world.id}`} className="text-primary hover:underline mb-4 inline-block">
+                        Read more about {world.name} →
+                      </Link>
                       <div className="space-y-4">
                         <h4 className="text-xl font-bold text-primary">Notable Features</h4>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -211,7 +214,7 @@ export default function WorldsPage() {
           </div>
 
           {/* Add margin bottom to ensure no overlap */}
-          <div className="mb-32">
+          <div className="mb-40">
             <div className="bg-black/50 backdrop-blur-sm rounded-xl p-8 max-w-3xl mx-auto text-center">
               <h2 className="text-2xl font-bold text-white mb-4">Explore the Full Map</h2>
               <p className="text-white/80 mb-6">

@@ -70,7 +70,7 @@ export default function WorldInteractiveCard({
   return (
     <>
       <motion.div
-        className="perspective-1000 cursor-pointer"
+        className="perspective-1000 cursor-pointer w-full min-h-[300px] mb-16 md:mb-0"
         whileHover={{ scale: 1.03 }}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
@@ -153,7 +153,7 @@ export default function WorldInteractiveCard({
       <AnimatePresence>
         {showQuestAnimation && (
           <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

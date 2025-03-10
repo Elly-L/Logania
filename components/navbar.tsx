@@ -39,8 +39,8 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link href={isHomePage ? "#about" : "/#about"} className="text-white/80 hover:text-primary transition-colors">
-            About
+          <Link href={isHomePage ? "/" : "/"} className="text-white/80 hover:text-primary transition-colors">
+            Home
           </Link>
           <Link href="/worlds" className="text-white/80 hover:text-primary transition-colors">
             Worlds
@@ -77,11 +77,11 @@ export default function Navbar() {
         <div className="md:hidden bg-black/95 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
             <Link
-              href={isHomePage ? "#about" : "/#about"}
+              href={isHomePage ? "/" : "/"}
               className="text-white/80 hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Home
             </Link>
             <Link
               href="/worlds"

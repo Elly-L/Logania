@@ -241,29 +241,35 @@ export default function EldoriaPage() {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorldInteractiveCard
-                  title="The Archmage's Request"
-                  description="Elyndra, the Archmage of the Crystal Tower, seeks assistance with a magical anomaly that threatens the city's protective wards."
-                  type="quest"
-                  difficulty="medium"
-                  reward="Access to the Crystal Tower Library"
-                  color="text-amber-400"
-                />
-                <WorldInteractiveCard
-                  title="Secrets of the Eternal Gardens"
-                  description="Ancient texts speak of a hidden chamber beneath the Eternal Gardens where powerful artifacts were stored during the Great Cataclysm."
-                  type="location"
-                  difficulty="hard"
-                  color="text-amber-400"
-                />
-                <WorldInteractiveCard
-                  title="The First Mage"
-                  description="Learn about Eldor, the legendary founder of Eldoria and the first human to master the arcane arts in Logania."
-                  type="lore"
-                  difficulty="easy"
-                  color="text-amber-400"
-                />
+              <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
+                <div className="w-full md:w-1/2 lg:w-1/3 md:px-3">
+                  <WorldInteractiveCard
+                    title="The Archmage's Request"
+                    description="Elyndra, the Archmage of the Crystal Tower, seeks assistance with a magical anomaly that threatens the city's protective wards."
+                    type="quest"
+                    difficulty="medium"
+                    reward="Access to the Crystal Tower Library"
+                    color="text-amber-400"
+                  />
+                </div>
+                <div className="w-full md:w-1/2 lg:w-1/3 md:px-3">
+                  <WorldInteractiveCard
+                    title="Secrets of the Eternal Gardens"
+                    description="Ancient texts speak of a hidden chamber beneath the Eternal Gardens where powerful artifacts were stored during the Great Cataclysm."
+                    type="location"
+                    difficulty="hard"
+                    color="text-amber-400"
+                  />
+                </div>
+                <div className="w-full md:w-1/2 lg:w-1/3 md:px-3">
+                  <WorldInteractiveCard
+                    title="The First Mage"
+                    description="Learn about Eldor, the legendary founder of Eldoria and the first human to master the arcane arts in Logania."
+                    type="lore"
+                    difficulty="easy"
+                    color="text-amber-400"
+                  />
+                </div>
               </div>
             </div>
           </section>

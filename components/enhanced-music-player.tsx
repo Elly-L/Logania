@@ -192,7 +192,7 @@ export default function EnhancedMusicPlayer({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-12 right-0 bg-black/90 backdrop-blur-md rounded-lg p-4 shadow-lg border border-gray-800 w-64"
+            className="absolute bottom-12 right-0 bg-black/90 backdrop-blur-md rounded-lg p-4 shadow-lg border border-gray-800 w-64 max-w-[calc(100vw-2rem)]"
           >
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-sm font-medium text-white">Music Player</h3>
@@ -222,9 +222,7 @@ export default function EnhancedMusicPlayer({
                       key={theme.id}
                       onClick={() => setCurrentTheme(theme)}
                       className={`text-left px-3 py-2 rounded text-sm ${
-                        currentTheme.id === theme.id
-                          ? "bg-primary/20 text-primary"
-                          : "text-white/80 hover:bg-white/10"
+                        currentTheme.id === theme.id ? "bg-primary/20 text-primary" : "text-white/80 hover:bg-white/10"
                       }`}
                     >
                       {theme.title}
@@ -262,9 +260,7 @@ export default function EnhancedMusicPlayer({
                 {isPlaying ? <Pause className="ml-2 h-4 w-4" /> : <Play className="ml-2 h-4 w-4" />}
               </Button>
 
-              <div className="text-xs text-white/60 text-center">
-                Now Playing: {currentTheme.title}
-              </div>
+              <div className="text-xs text-white/60 text-center">Now Playing: {currentTheme.title}</div>
             </div>
           </motion.div>
         )}

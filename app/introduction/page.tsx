@@ -254,7 +254,7 @@ export default function IntroductionPage() {
                   These are but a few of the many realms within Logania. More lands await discovery on your journey.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {worlds.map((world, index) => (
                     <motion.div
                       key={world.id}

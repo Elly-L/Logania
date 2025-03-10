@@ -71,6 +71,12 @@ const characters: Character[] = [
       "Master craftsman who forges magical artifacts in the depths of the Frostpeak Mountains. His creations are sought after by heroes across the land.",
     fullBio:
       "Grimshaw comes from a long line of dwarven craftsmen, but he was the first in generations to rediscover the ancient art of runesmithing. By infusing metal with magical runes during the forging process, he creates weapons and armor with extraordinary properties. His workshop deep in the Frostpeak Mountains is said to contain forges that burn with the fire of a  His workshop deep in the Frostpeak Mountains is said to contain forges that burn with the fire of a captured star.",
+    abilities: [
+      "Master Runesmithing - Can infuse metal with powerful magical properties",
+      "Material Insight - Instantly understands the properties of any metal or stone",
+      "Forge Mastery - Can work with materials that would melt normal tools",
+      "Dwarven Resilience - Exceptional resistance to heat, cold, and magical effects",
+    ],
     backstory:
       "As a young dwarf, Grimshaw was considered odd for his obsession with ancient texts rather than traditional mining. When he discovered a sealed chamber containing the lost runesmithing techniques of his ancestors, he became determined to revive the art. His first masterpiece—an axe that could cut through any material—brought warriors from across Logania to his door. Now he creates only for those he deems worthy, using his gifts to ensure balance in the realm.",
     image:
@@ -205,7 +211,7 @@ export default function CharacterShowcase() {
           </AnimatePresence>
 
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
-            {characters.map((_, index) => (
+            {characters?.map((_, index) => (
               <motion.button
                 key={index}
                 className={`w-2 h-2 rounded-full ${index === currentIndex ? "bg-primary" : "bg-white/30"}`}
@@ -247,7 +253,7 @@ export default function CharacterShowcase() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-                {characters.map((character) => (
+                {characters?.map((character) => (
                   <motion.div
                     key={character.id}
                     className="bg-black/50 rounded-lg overflow-hidden border border-gray-800 hover:border-primary/50 transition-colors"
@@ -408,9 +414,12 @@ export default function CharacterShowcase() {
                     {activeTab === "abilities" && (
                       <div>
                         <ul className="list-disc pl-5 space-y-2 text-white/90">
-                          {currentCharacter.abilities.map((ability, index) => (
+                          {(currentCharacter.abilities || []).map((ability, index) => (
                             <li key={index}>{ability}</li>
                           ))}
+                          {(!currentCharacter.abilities || currentCharacter.abilities.length === 0) && (
+                            <p className="text-white/70">No special abilities recorded.</p>
+                          )}
                         </ul>
                       </div>
                     )}
@@ -424,20 +433,22 @@ export default function CharacterShowcase() {
                 </div>
               </div>
 
-              <div className="p-6 border-t border-gray-800 flex justify-between">
-                <Button variant="outline" onClick={handleCloseModal}>
+              <div className="p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-4 sm:gap-0 sm:justify-between">
+                <Button variant="outline" onClick={handleCloseModal} className="w-full sm:w-auto">
                   <X className="h-4 w-4 mr-2" />
                   Close
                 </Button>
 
-                <div className="flex gap-2">
-                  <Button variant="outline" onClick={prevCharacter}>
-                    <ChevronLeft className="h-4 w-4 mr-2" />
-                    Previous Character
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Button variant="outline" onClick={prevCharacter} className="flex-1 sm:flex-none">
+                    <ChevronLeft className="h-4 w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Previous Character</span>
+                    <span className="sm:hidden">Prev</span>
                   </Button>
-                  <Button variant="outline" onClick={nextCharacter}>
-                    Next Character
-                    <ChevronRight className="h-4 w-4 ml-2" />
+                  <Button variant="outline" onClick={nextCharacter} className="flex-1 sm:flex-none">
+                    <span className="hidden sm:inline">Next Character</span>
+                    <span className="sm:hidden">Next</span>
+                    <ChevronRight className="h-4 w-4 ml-1 sm:ml-2" />
                   </Button>
                 </div>
               </div>

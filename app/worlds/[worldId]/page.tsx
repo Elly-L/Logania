@@ -349,112 +349,136 @@ export default function WorldPage() {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex flex-col gap-16 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6">
                 {world.id === "eldoria" && (
                   <>
-                    <WorldInteractiveCard
-                      title="The Archmage's Request"
-                      description="Elyndra, the Archmage of the Crystal Tower, seeks assistance with a magical anomaly that threatens the city's protective wards."
-                      type="quest"
-                      difficulty="medium"
-                      reward="Access to the Crystal Tower Library"
-                      color="text-amber-400"
-                    />
-                    <WorldInteractiveCard
-                      title="Secrets of the Eternal Gardens"
-                      description="Ancient texts speak of a hidden chamber beneath the Eternal Gardens where powerful artifacts were stored during the Great Cataclysm."
-                      type="location"
-                      difficulty="hard"
-                      color="text-amber-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The First Mage"
-                      description="Learn about Eldor, the legendary founder of Eldoria and the first human to master the arcane arts in Logania."
-                      type="lore"
-                      difficulty="easy"
-                      color="text-amber-400"
-                    />
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Archmage's Request"
+                        description="Elyndra, the Archmage of the Crystal Tower, seeks assistance with a magical anomaly that threatens the city's protective wards."
+                        type="quest"
+                        difficulty="medium"
+                        reward="Access to the Crystal Tower Library"
+                        color="text-amber-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="Secrets of the Eternal Gardens"
+                        description="Ancient texts speak of a hidden chamber beneath the Eternal Gardens where powerful artifacts were stored during the Great Cataclysm."
+                        type="location"
+                        difficulty="hard"
+                        color="text-amber-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The First Mage"
+                        description="Learn about Eldor, the legendary founder of Eldoria and the first human to master the arcane arts in Logania."
+                        type="lore"
+                        difficulty="easy"
+                        color="text-amber-400"
+                      />
+                    </div>
                   </>
                 )}
 
                 {world.id === "whispering-woods" && (
                   <>
-                    <WorldInteractiveCard
-                      title="Voice of the Heart Tree"
-                      description="The Heart Tree has fallen silent, and the forest spirits are growing restless. Discover what has disrupted the ancient connection."
-                      type="quest"
-                      difficulty="medium"
-                      reward="Ability to understand forest whispers"
-                      color="text-green-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Forgotten Shrine"
-                      description="Deep within the woods lies an ancient elven shrine, its purpose and powers long forgotten by all but the oldest trees."
-                      type="location"
-                      difficulty="hard"
-                      color="text-green-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Forest's Memory"
-                      description="The Whispering Woods remember all that has transpired within their boundaries since the dawn of Logania."
-                      type="lore"
-                      difficulty="easy"
-                      color="text-green-400"
-                    />
+                    <div>
+                      <WorldInteractiveCard
+                        title="Voice of the Heart Tree"
+                        description="The Heart Tree has fallen silent, and the forest spirits are growing restless. Discover what has disrupted the ancient connection."
+                        type="quest"
+                        difficulty="medium"
+                        reward="Ability to understand forest whispers"
+                        color="text-green-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Forgotten Shrine"
+                        description="Deep within the woods lies an ancient elven shrine, its purpose and powers long forgotten by all but the oldest trees."
+                        type="location"
+                        difficulty="hard"
+                        color="text-green-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Forest's Memory"
+                        description="The Whispering Woods remember all that has transpired within their boundaries since the dawn of Logania."
+                        type="lore"
+                        difficulty="easy"
+                        color="text-green-400"
+                      />
+                    </div>
                   </>
                 )}
 
                 {world.id === "frostpeak-mountains" && (
                   <>
-                    <WorldInteractiveCard
-                      title="Dragon's Hoard"
-                      description="Rumors speak of Frostfang's vast treasure hoard hidden somewhere in the highest peaks. Few have sought it, fewer have returned."
-                      type="quest"
-                      difficulty="hard"
-                      reward="A dragon-forged artifact"
-                      color="text-blue-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Lost Dwarven Halls"
-                      description="The abandoned dwarven city of Khaz-Modan holds secrets of ancient crafting techniques and powerful runesmithing."
-                      type="location"
-                      difficulty="medium"
-                      color="text-blue-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Frozen Sage"
-                      description="Legends tell of a wise hermit who lives atop the highest peak, preserved by the cold and possessing knowledge from the dawn of time."
-                      type="lore"
-                      difficulty="easy"
-                      color="text-blue-400"
-                    />
+                    <div>
+                      <WorldInteractiveCard
+                        title="Dragon's Hoard"
+                        description="Rumors speak of Frostfang's vast treasure hoard hidden somewhere in the highest peaks. Few have sought it, fewer have returned."
+                        type="quest"
+                        difficulty="hard"
+                        reward="A dragon-forged artifact"
+                        color="text-blue-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Lost Dwarven Halls"
+                        description="The abandoned dwarven city of Khaz-Modan holds secrets of ancient crafting techniques and powerful runesmithing."
+                        type="location"
+                        difficulty="medium"
+                        color="text-blue-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Frozen Sage"
+                        description="Legends tell of a wise hermit who lives atop the highest peak, preserved by the cold and possessing knowledge from the dawn of time."
+                        type="lore"
+                        difficulty="easy"
+                        color="text-blue-400"
+                      />
+                    </div>
                   </>
                 )}
 
                 {world.id === "azure-sea" && (
                   <>
-                    <WorldInteractiveCard
-                      title="The Siren's Call"
-                      description="The mysterious beings of the Siren's Spires have fallen silent, disrupting weather patterns across the Azure Sea."
-                      type="quest"
-                      difficulty="medium"
-                      reward="Control over minor weather phenomena"
-                      color="text-teal-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Sunken City"
-                      description="The ruins of an ancient human city lie beneath the waves, holding treasures and technologies from before the Great Cataclysm."
-                      type="location"
-                      difficulty="hard"
-                      color="text-teal-400"
-                    />
-                    <WorldInteractiveCard
-                      title="The Merfolk Alliance"
-                      description="Learn about the historic pact between humans and merfolk that was formed during the rising of the waters."
-                      type="lore"
-                      difficulty="easy"
-                      color="text-teal-400"
-                    />
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Siren's Call"
+                        description="The mysterious beings of the Siren's Spires have fallen silent, disrupting weather patterns across the Azure Sea."
+                        type="quest"
+                        difficulty="medium"
+                        reward="Control over minor weather phenomena"
+                        color="text-teal-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Sunken City"
+                        description="The ruins of an ancient human city lie beneath the waves, holding treasures and technologies from before the Great Cataclysm."
+                        type="location"
+                        difficulty="hard"
+                        color="text-teal-400"
+                      />
+                    </div>
+                    <div>
+                      <WorldInteractiveCard
+                        title="The Merfolk Alliance"
+                        description="Learn about the historic pact between humans and merfolk that was formed during the rising of the waters."
+                        type="lore"
+                        difficulty="easy"
+                        color="text-teal-400"
+                      />
+                    </div>
                   </>
                 )}
               </div>
