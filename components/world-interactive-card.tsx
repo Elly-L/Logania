@@ -15,7 +15,6 @@ interface WorldInteractiveCardProps {
   difficulty?: "easy" | "medium" | "hard"
   reward?: string
   color: string
-  onBeginAction?: () => void // New prop for the callback
 }
 
 export default function WorldInteractiveCard({
@@ -25,7 +24,6 @@ export default function WorldInteractiveCard({
   difficulty = "medium",
   reward,
   color,
-  onBeginAction, // New prop
 }: WorldInteractiveCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
@@ -59,18 +57,11 @@ export default function WorldInteractiveCard({
     }
   }
 
-  const handleBeginAction = (e: React.MouseEvent) => {
+  const handleBeginQuest = (e: React.MouseEvent) => {
     e.stopPropagation()
-    console.log("Begin action clicked for:", title) // Debug log
     setShowQuestAnimation(true)
 
-    // Remove the timeout and call onBeginAction immediately
-    if (onBeginAction) {
-      console.log("Calling onBeginAction for:", title) // Debug log
-      onBeginAction()
-    }
-
-    // Set a timeout to hide the animation after 3 seconds
+    // Reset animation after it completes
     setTimeout(() => {
       setShowQuestAnimation(false)
     }, 3000)
@@ -138,7 +129,7 @@ export default function WorldInteractiveCard({
               <Button
                 variant="outline"
                 className={`mt-4 border-${color.split("-")[0]}-500/50 hover:bg-${color.split("-")[0]}-500/20`}
-                onClick={handleBeginAction}
+                onClick={handleBeginQuest}
               >
                 Begin{" "}
                 {type === "quest"
