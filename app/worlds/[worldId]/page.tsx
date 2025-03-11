@@ -1,14 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import dynamic from "next/dynamic"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, MapPin, Book, Compass, Shield } from "lucide-react"
 import WorldInteractiveCard from "@/components/world-interactive-card"
 import FloatingParticles from "@/components/floating-particles"
+
+// Dynamically import StoryExperience
+const StoryExperience = dynamic(() => import("@/components/story-experience"), {
+  ssr: false,
+  loading: () => <div>Loading Story Experience...</div>,
+})
 
 const worlds = {
   eldoria: {
@@ -177,6 +184,13 @@ export default function WorldPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const worldId = params.worldId as string
+  const [showStoryExperience, setShowStoryExperience] = useState(false)
+
+  const [hasMounted, setHasMounted] = useState(false)
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   useEffect(() => {
     // Simulate loading
@@ -201,6 +215,19 @@ export default function WorldPage() {
   }
 
   const world = worlds[worldId as keyof typeof worlds]
+
+  const handleBeginStudy = () => {
+    console.log("handleBeginStudy called") // Debug log
+    setShowStoryExperience(true)
+  }
+
+  useEffect(() => {
+    console.log("showStoryExperience:", showStoryExperience) // Debug log
+  }, [showStoryExperience])
+
+  if (!hasMounted) {
+    return null
+  }
 
   return (
     <main className="min-h-screen pt-20 bg-black">
@@ -378,6 +405,7 @@ export default function WorldPage() {
                         type="lore"
                         difficulty="easy"
                         color="text-amber-400"
+                        onBeginAction={handleBeginStudy}
                       />
                     </div>
                   </>
@@ -484,6 +512,18 @@ export default function WorldPage() {
               </div>
             </div>
           </section>
+
+          {/* Story Experience */}
+          <AnimatePresence>
+            {showStoryExperience && (
+              <StoryExperience
+                onClose={() => {
+                  console.log("Closing StoryExperience") // Debug log
+                  setShowStoryExperience(false)
+                }}
+              />
+            )}
+          </AnimatePresence>
         </>
       )}
     </main>
